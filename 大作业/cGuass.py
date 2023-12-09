@@ -43,9 +43,15 @@ for row in np.arange(n_rows)[::-1]:
 
 endT = time.time()
 print(f"求得结果(保留{number}位小数):", sol)
+sol = sol.reshape(1,8)
+header = ['x1','x2','x3','x4','x5','x6','x7','x8']
 sol = pd.DataFrame(sol)
-sol.to_csv('./runData/cGuass/sol.csv',header=None)
-print("求解消耗时间:", endT - startT , "ms")
+sol.to_csv('./runData/cGuass/sol.csv',header=header,index=None)
+
+useT = np.array([endT - startT])
+print("求解消耗时间:", useT , "ms")
+useT = pd.DataFrame(useT)
+useT.to_csv('./runData/cGuass/time.csv',header=None,index=None,mode='a')
 
 
 
