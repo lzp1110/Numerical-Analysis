@@ -45,9 +45,9 @@ if __name__ == "__main__":
     B,P = GetProblem()
     print(P)
     P = P.reshape(P.shape[0],1)
-    problem = np.hstack((B,P))
-    problem = pd.DataFrame(problem)
-    problem.to_csv('./runData/problem/problem_4.csv',index=None)
+    # problem = np.hstack((B,P))
+    # problem = pd.DataFrame(problem)
+    # problem.to_csv('./runData/problem/problem_4.csv',index=None)
 
 
 
