@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 from problem import *
 
@@ -22,15 +23,17 @@ for i in range(n):
 
 '''低松弛迭代'''
 fig1 = plt.figure(figsize = (15,15))
-iterData_0 = []
-for k in range(9):
+iterData_0 = [] ##存放每种情况下第一个变量的迭代过程
+eigvalue = []##存放不同过程的ρ
+for k in range(10):
     w = round(w + 0.1, 1)
     '''G = (D - L)_*U'''
     temp = np.linalg.inv(D - w*L)
     G = temp.dot((1-w)*D+w*U)
     '''测试收敛条件，p(G) < 1'''
-    # eigenvalues, _ = np.linalg.eig(G)
+    eigenvalues, _ = np.linalg.eig(G)
     # print(abs(eigenvalues))
+    eigvalue.append(max(abs(eigenvalues)))
     '''f = (D - L)_*P'''
     f = w*temp.dot(P)
 
@@ -58,7 +61,7 @@ for k in range(9):
 
 
     '''绘图'''
-    ax = fig1.add_subplot(3,3,k+1)
+    ax = fig1.add_subplot(3,4,k+1)
     x = np.arange(iter_num)
     '''依次绘制每个解的迭代过程'''
     for i in range(8):
@@ -68,7 +71,7 @@ for k in range(9):
 
     print(f"w={w}迭代完成")
     # plt.show()
-plt.savefig("./runData/SOR/" + f"iteration_low" + ".png")
+# plt.savefig("./runData/SOR/" + f"iteration_low" + ".png")
 
 '''高松弛迭代'''
 fig2 = plt.figure(figsize = (15,15))
@@ -79,8 +82,9 @@ for k in range(9):
     temp = np.linalg.inv(D - w*L)
     G = temp.dot((1-w)*D+w*U)
     '''测试收敛条件，p(G) < 1'''
-    # eigenvalues, _ = np.linalg.eig(G)
+    eigenvalues, _ = np.linalg.eig(G)
     # print(abs(eigenvalues))
+    eigvalue.append(max(abs(eigenvalues)))
     '''f = (D - L)_*P'''
     f = w*temp.dot(P)
 
@@ -113,18 +117,29 @@ for k in range(9):
     '''依次绘制每个解的迭代过程'''
     for i in range(8):
         ax.plot(x,iterData[:,i])
-    # ax.set_xlabel("iter_num",fontsize=6)
     ax.set_title(f"SOR Iteration(w ={w})",fontsize=10)
 
     print(f"w={w}迭代完成")
     # plt.show()
-plt.savefig("./runData/SOR/" + f"iteration_high" + ".png")
+# plt.savefig("./runData/SOR/" + f"iteration_high" + ".png")
 
 
-'''在同一张图上绘制不同w'''
-fig = plt.figure(figsize = (10,5))
-for data in iterData_0:
-    plt.plot(range(len(data)),data)
-plt.xlabel("iter_num")
-plt.title("Comparison of Different W")
-plt.show()
+'''在同一张图上绘制不同w下的迭代过程'''
+# fig = plt.figure(figsize = (10,5))
+# for data in iterData_0:
+#     plt.plot(range(len(data)),data)
+# plt.xlabel("iter_num")
+# plt.title("Comparison of Different W")
+# plt.show()
+
+
+'''绘制不同情况下的ρ值'''
+# fig3 = plt.figure(figsize = (5,5))
+# x_values = np.arange(0.1, 2, 0.1)
+# print(x_values)
+# plt.plot(x_values,eigvalue,marker='o')
+# plt.xticks(np.arange(0.1, 2.0, 0.1))
+# plt.xlabel('w')
+# plt.ylabel("p(w)")
+# plt.show()
+

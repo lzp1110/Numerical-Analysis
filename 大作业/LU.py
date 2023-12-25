@@ -33,6 +33,7 @@ startT = time.time()
 L,U = lu_decomposition(B)
 # print(L)
 # print(U)
+print(L.dot(U))
 n = L.shape[0]
 
 '''LUX = P'''
@@ -49,16 +50,16 @@ for row in np.arange(n)[::-1]:
 endT = time.time()
 
 print(f"求得结果(保留{number}位小数):", X)
-X = X.reshape(1,8)
-header = ['x1','x2','x3','x4','x5','x6','x7','x8']
-X = pd.DataFrame(X)
-X.to_csv('./runData/LU/LU_sol.csv',header=header,index=None)
+# X = X.reshape(1,8)
+# header = ['x1','x2','x3','x4','x5','x6','x7','x8']
+# X = pd.DataFrame(X)
+# X.to_csv('./runData/LU/LU_sol.csv',header=header,index=None)
 
 
 useT = np.array([endT - startT])
 print("求解消耗时间:", useT , "ms")
-useT = pd.DataFrame(useT)
-useT.to_csv('./runData/LU/time.csv',header=None,index=None,mode='a')
+# useT = pd.DataFrame(useT)
+# useT.to_csv('./runData/LU/time.csv',header=None,index=None,mode='a')
 
 
 

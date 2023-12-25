@@ -38,7 +38,7 @@ def GetProblem():
     P = P[1:]
     x = sp.symbols('x')
     B_ = np.linalg.inv(B)
-    print(B_.dot(P))
+    # print(B_.dot(P))
     return B,P
 
 if __name__ == "__main__":
